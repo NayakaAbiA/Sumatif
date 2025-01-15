@@ -1,46 +1,71 @@
 <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">K-ONE</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <?php if($user->foto_profile): ?>
-                            <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+    <nav class="navbar bg-light navbar-light">
+        <a class="navbar-brand mx-4 mb-3">
+            <h3 class="text-primary">K-ONE</h3>
+        </a>
+        <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+                <?php if($user->foto_profile): ?>
+                    <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
+                <?php else: ?>
+                    <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
+                <?php endif; ?>                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3">
+                <?php if(Auth::check()): ?>
+                    <h6 class="mb-0"><?php echo e(Auth::user()->name); ?></h6>
+                    <span>
+                        <?php if(Auth::user()->role === 'kurikulum'): ?>
+                            Kurikulum
+                        <?php elseif(Auth::user()->role === 'guru'): ?>
+                            Guru
+                        <?php elseif(Auth::user()->role === 'kaprog'): ?>
+                            Kepala Program
                         <?php else: ?>
-                            <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
+                            Guest
                         <?php endif; ?>
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Nayaka Abi</h6>
-                        <span>Kurikulum</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Buttons</a>
-                            <a href="typography.html" class="dropdown-item">Typography</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
-                        </div>
-                    </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item">Blank Page</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+                    </span>
+                <?php else: ?>
+                    <h6 class="mb-0">Guest</h6>
+                    <span>Guest</span>
+                <?php endif; ?>
+            </div>
         </div>
+
+        <div class="navbar-nav w-100">
+            <?php if(Auth::check() && Auth::user()->role === 'kurikulum'): ?>
+                <a href="<?php echo e(route('dashboard.kurikulum')); ?>" class="nav-item nav-link active">
+                    <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+                <a href="<?php echo e(route('upload.kurikulum')); ?>" class="nav-item nav-link">
+                    <i class="fa fa-book me-2"></i>Blangko Kisi - Kisi
+                </a>
+                <a href="<?php echo e(route('daftarhadir.kurikulum')); ?>" class="nav-item nav-link">
+                    <i class="fa fa-book me-2"></i>Daftar Hadir
+                </a>
+                <a href="" class="nav-item nav-link">
+                    <i class="fa fa-book me-2"></i>Soal Ujian
+                </a>
+            <?php elseif(Auth::check() && Auth::user()->role === 'guru'): ?>
+                <a href="<?php echo e(route('dashboard.guru')); ?>" class="nav-item nav-link active">
+                    <i class="fa fa-chalkboard-teacher me-2"></i>Dashboard Guru
+                </a>
+                <a href="" class="nav-item nav-link">
+                    <i class="fa fa-users me-2"></i>Kelas
+                </a>
+            <?php elseif(Auth::check() && Auth::user()->role === 'kaprog'): ?>
+                <a href="" class="nav-item nav-link active">
+                    <i class="fa fa-briefcase me-2"></i>Dashboard Kaprog
+                </a>
+                <a href="" class="nav-item nav-link">
+                    <i class="fa fa-file-alt me-2"></i>Laporan
+                </a>
+            <?php else: ?>
+                <a href="<?php echo e(route('login')); ?>" class="nav-item nav-link">
+                    <i class="fa fa-sign-in-alt me-2"></i>Login
+                </a>
+            <?php endif; ?>
+        </div>
+    </nav>
+</div>
 <?php /**PATH C:\Project Pak Jajat\Sumatif\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
