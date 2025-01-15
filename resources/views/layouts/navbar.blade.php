@@ -57,7 +57,7 @@
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">Notificatin</span>
@@ -80,19 +80,26 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
                             @if ($user->foto_profile)
                                 <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
                             @else
                                 <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
                             @endif                            <span class="d-none d-lg-inline-flex">John Doe</span>
+
+                            <img class="rounded-circle me-lg-2" src="{{asset('Assets/dashmin-1.0.0/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->role }}</span>
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
                         </div>
                     </div>
                 </div>
