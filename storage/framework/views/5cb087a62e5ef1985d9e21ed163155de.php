@@ -54,7 +54,8 @@
             <!-- Navbar End -->
 
             <?php echo $__env->yieldContent('content'); ?>
-           
+
+
 
 
             <!-- Footer Start -->

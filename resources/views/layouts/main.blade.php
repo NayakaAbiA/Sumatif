@@ -54,7 +54,7 @@
             <!-- Navbar End -->
 
             @yield('content')
-           
+
 
 
 

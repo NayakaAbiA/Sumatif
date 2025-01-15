@@ -85,13 +85,12 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 
                             @if ($user->foto_profile)
-                                <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+                                <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
                             @else
                                 <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
-                            @endif                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            @endif
 
-                            <img class="rounded-circle me-lg-2" src="{{asset('Assets/dashmin-1.0.0/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->role }}</span>
+                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">

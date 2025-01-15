@@ -40,6 +40,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->route('dashboard.guru')->with('success', 'Profil berhasil diperbarui.');
     }
 }
