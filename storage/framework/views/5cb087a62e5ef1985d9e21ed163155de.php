@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{asset('Assets/dashmin-1.0.0/img/favicon.ico')}}" rel="icon">
+    <link href="<?php echo e(asset('Assets/dashmin-1.0.0/img/favicon.ico')); ?>" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,14 +21,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{asset('Assets/dashmin-1.0.0/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{asset('Assets/dashmin-1.0.0/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')}}" rel="stylesheet" />
+    <link href="<?php echo e(asset('Assets/dashmin-1.0.0/lib/owlcarousel/assets/owl.carousel.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('Assets/dashmin-1.0.0/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')); ?>" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{asset('Assets/dashmin-1.0.0/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="<?php echo e(asset('Assets/dashmin-1.0.0/css/bootstrap.min.css')); ?>" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{asset('Assets/dashmin-1.0.0/css/style.css')}}" rel="stylesheet">
+    <link href="<?php echo e(asset('Assets/dashmin-1.0.0/css/style.css')); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -43,23 +43,22 @@
 
 
         <!-- Sidebar Start -->
-            @include('layouts.sidebar')
+            <?php echo $__env->make('layouts.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <!-- Sidebar End -->
 
 
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-                @include('layouts.navbar')
+                <?php echo $__env->make('layouts.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <!-- Navbar End -->
 
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
            
 
 
-
             <!-- Footer Start -->
-                @include('layouts.footer')
+                <?php echo $__env->make('layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <!-- Footer End -->
         </div>
         <!-- Content End -->
@@ -72,16 +71,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/chart/chart.min.js')}}"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/easing/easing.min.js')}}"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/waypoints/waypoints.min.js')}}"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/owlcarousel/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/tempusdominus/js/moment.min.js')}}"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
-    <script src="{{asset('Assets/dashmin-1.0.0/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/chart/chart.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/easing/easing.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/waypoints/waypoints.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/owlcarousel/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/tempusdominus/js/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/tempusdominus/js/moment-timezone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
 
     <!-- Template Javascript -->
-    <script src="{{asset('Assets/dashmin-1.0.0/js/main.js')}}"></script>
+    <script src="<?php echo e(asset('Assets/dashmin-1.0.0/js/main.js')); ?>"></script>
 </body>
 
 </html>
+<?php /**PATH C:\Project Pak Jajat\Sumatif\resources\views/layouts/main.blade.php ENDPATH**/ ?>
