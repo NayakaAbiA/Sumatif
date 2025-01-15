@@ -17,11 +17,11 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    @if ($user->foto_profile)
-                                        <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
-                                    @else
+                                    <?php if($user->foto_profile): ?>
+                                        <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+                                    <?php else: ?>
                                         <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
-                                    @endif                                    <div class="ms-2">
+                                    <?php endif; ?>                                    <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
@@ -30,11 +30,11 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    @if ($user->foto_profile)
-                                        <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
-                                    @else
+                                    <?php if($user->foto_profile): ?>
+                                        <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+                                    <?php else: ?>
                                         <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
-                                    @endif                                    <div class="ms-2">
+                                    <?php endif; ?>                                    <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
@@ -43,11 +43,11 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    @if ($user->foto_profile)
-                                        <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
-                                    @else
+                                    <?php if($user->foto_profile): ?>
+                                        <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+                                    <?php else: ?>
                                         <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
-                                    @endif                                    <div class="ms-2">
+                                    <?php endif; ?>                                    <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
@@ -83,11 +83,11 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            @if ($user->foto_profile)
-                                <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
-                            @else
+                            <?php if($user->foto_profile): ?>
+                                <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+                            <?php else: ?>
                                 <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
-                            @endif                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <?php endif; ?>                            <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
@@ -97,3 +97,4 @@
                     </div>
                 </div>
             </nav>
+<?php /**PATH C:\Project Pak Jajat\Sumatif\resources\views/layouts/navbar.blade.php ENDPATH**/ ?>

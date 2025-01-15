@@ -5,11 +5,11 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        @if ($user->foto_profile)
-                            <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
-                        @else
+                        <?php if($user->foto_profile): ?>
+                            <img src="<?php echo e(asset('storage/' . $user->foto_profile)); ?>" alt="Foto Profil" class="profile-pic" alt="" style="width: 40px; height: 40px;">
+                        <?php else: ?>
                             <img src="https://via.placeholder.com/150" alt="Default Foto Profil" class="profile-pic">
-                        @endif
+                        <?php endif; ?>
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -43,3 +43,4 @@
                 </div>
             </nav>
         </div>
+<?php /**PATH C:\Project Pak Jajat\Sumatif\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
