@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\UploadKisi;
 use Illuminate\Http\Request;
 
@@ -9,14 +9,16 @@ class UploadKisiController extends Controller
 {
     public function index()
     {
-        $UploadKisi = UploadKisi::all(); // Ambil semua data dari tabel Upload$UploadKisi
-        return view('kurikulum.uploadfile.index', compact('UploadKisi'));
+        $UploadKisi = UploadKisi::all();
+        $user = Auth::user();// Ambil semua data dari tabel Upload$UploadKisi
+        return view('kurikulum.uploadfile.index', compact('UploadKisi' , 'user'));
     }
 
     public function create(){
-        return view('kurikulum.uploadfile.create');
+        $user = Auth::user();
+        return view('kurikulum.uploadfile.create', compact('user'));
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -25,7 +27,7 @@ class UploadKisiController extends Controller
 
         if ($file = $request->file('file')) {
             $path = $file->store('uploads', 'public');
-            $UploadKisi = UploadKisi ::create([         
+            $UploadKisi = UploadKisi ::create([
                 'path' => $path,
                 'type' => $file->getClientOriginalExtension(),
                 'size' => $file->getSize(),
