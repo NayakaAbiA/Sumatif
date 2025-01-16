@@ -17,12 +17,14 @@ class KurikulumController extends Controller
 
     //KISI - KISI
     public function kisiKurikulum(){
-        return view('kurikulum.kisi-kisi.index');
+        $user = Auth::user();
+        return view('kurikulum.kisi-kisi.index' , compact('user'));
     }
 
     //KDAFTAR HADIR
     public function dftrHadirKurikulum(){
-        return view('kurikulum.daftar-hadir.index');
+        $user = Auth::user();
+        return view('kurikulum.daftar-hadir.index' , compact('kurikulum'));
     }
 
     public function editProfile()
