@@ -118,7 +118,8 @@ class KurikulumController extends Controller
 
     //KDAFTAR HADIR
     public function dftrHadirKurikulum(){
-        return view('kurikulum.daftar-hadir.index');
+        $user = Auth::user();
+        return view('kurikulum.daftar-hadir.index' , compact('kurikulum'));
     }
 
     public function editProfile()

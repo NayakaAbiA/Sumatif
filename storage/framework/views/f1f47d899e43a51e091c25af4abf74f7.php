@@ -34,41 +34,42 @@
 
         <div class="navbar-nav w-100">
             <?php if(Auth::check() && Auth::user()->role === 'kurikulum'): ?>
-                <a href="<?php echo e(route('dashboard.kurikulum')); ?>" class="nav-item nav-link active">
+                <a href="<?php echo e(route('dashboard.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('dashboard.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                 </a>
                 <a href="<?php echo e(route('kisi.kurikulum')); ?>" class="nav-item nav-link">
                     <i class="fa fa-book me-2"></i>Kisi - Kisi
                 </a>
-                <a href="<?php echo e(route('daftarhadir.kurikulum')); ?>" class="nav-item nav-link">
+                <a href="<?php echo e(route('daftarhadir.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('daftarhadir.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-book me-2"></i>Daftar Hadir
                 </a>
-                <a href="" class="nav-item nav-link">
+                <a href="" class="nav-item nav-link <?php echo e(request()->routeIs('soalujian.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-book me-2"></i>Soal Ujian
                 </a>
             <?php elseif(Auth::check() && Auth::user()->role === 'guru'): ?>
-                <a href="<?php echo e(route('dashboard.guru')); ?>" class="nav-item nav-link active">
+                <a href="<?php echo e(route('dashboard.guru')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('dashboard.guru') ? 'active' : ''); ?>">
                     <i class="fa fa-chalkboard-teacher me-2"></i>Dashboard Guru
                 </a>
-                <a href="" class="nav-item nav-link">
+                <a href="" class="nav-item nav-link <?php echo e(request()->routeIs('kelas.guru') ? 'active' : ''); ?>">
                     <i class="fa fa-users me-2"></i>Kelas
                 </a>
                 <a href="<?php echo e(route('kisi.guru')); ?>" class="nav-item nav-link">
                     <i class="fa fa-book me-2"></i>Kisi - Kisi
                 </a>
             <?php elseif(Auth::check() && Auth::user()->role === 'kaprog'): ?>
-                <a href="" class="nav-item nav-link active">
+                <a href="" class="nav-item nav-link <?php echo e(request()->routeIs('dashboard.kaprog') ? 'active' : ''); ?>">
                     <i class="fa fa-briefcase me-2"></i>Dashboard Kaprog
                 </a>
-                <a href="" class="nav-item nav-link">
+                <a href="" class="nav-item nav-link <?php echo e(request()->routeIs('laporan.kaprog') ? 'active' : ''); ?>">
                     <i class="fa fa-file-alt me-2"></i>Laporan
                 </a>
             <?php else: ?>
-                <a href="<?php echo e(route('login')); ?>" class="nav-item nav-link">
+                <a href="<?php echo e(route('login')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('login') ? 'active' : ''); ?>">
                     <i class="fa fa-sign-in-alt me-2"></i>Login
                 </a>
             <?php endif; ?>
         </div>
+
     </nav>
 </div>
 <?php /**PATH D:\Formatif_sumatif\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>

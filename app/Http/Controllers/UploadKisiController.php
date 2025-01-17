@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\UploadKisi;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UploadKisi;
 use Illuminate\Http\Request;
 
 class UploadKisiController extends Controller
@@ -19,7 +18,7 @@ class UploadKisiController extends Controller
         $user = Auth::user();
         return view('kurikulum.uploadfile.create',  compact('user'));
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
