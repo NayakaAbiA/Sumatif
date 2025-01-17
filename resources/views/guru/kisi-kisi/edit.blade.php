@@ -1,7 +1,9 @@
-<form action="{{ route('kisi.update', $kisiKisi->id) }}" method="POST" enctype="multipart/form-data">
+@extends('layouts.main')
+@section('content')
+<form action="{{ route('kisi.update.guru', $kisiKisi->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    
+
     <!-- Nama File -->
     <div class="mb-3">
         <label for="nama_file" class="form-label">Nama File</label>
@@ -59,8 +61,9 @@
 </form>
 
 <!-- Hapus Button -->
-<form action="{{ route('kisi.destroy', $kisiKisi->id) }}" method="POST" style="display:inline;">
+<form action="{{ route('kisi.destroy.guru', $kisiKisi->id) }}" method="POST" style="display:inline;">
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-danger">Hapus</button>
 </form>
+@endsection

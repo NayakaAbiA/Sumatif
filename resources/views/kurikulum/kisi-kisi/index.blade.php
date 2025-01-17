@@ -27,13 +27,13 @@
                                     <td>{{ $item->nama_file ?? 'Tidak ada file' }}</td>
                                     <td>
                                         <a href="{{ route('kisi.edit.kurikulum', $item->id) }}" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> 
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('kisi.destroy.kurikulum', $item->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus file ini?')">
-                                                <i class="fas fa-trash"></i> 
+                                                <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -81,7 +81,7 @@
                                     <a href="{{ asset('storage/' . $item->nama_file) }}" target="_blank" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Lihat
                                     </a>
-                                @else
+                                @elsez
                                     <span>Tidak ada file</span>
                                 @endif
                             </td>

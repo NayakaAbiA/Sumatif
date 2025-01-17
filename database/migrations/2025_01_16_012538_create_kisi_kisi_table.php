@@ -19,9 +19,17 @@ return new class extends Migration
             $table->string('mapel')->nullable();
             $table->enum('tingkat', ['X', 'XI', 'XII'])->nullable();
             $table->enum('konsentrasi', ['TKRO', 'TKJT', 'PPLG', 'DPIB', 'MP', 'AK', 'SP'])->nullable();  // Konsentrasi atau jurusan
+
+            // Menambahkan kolom user_id
+            $table->unsignedBigInteger('user_id'); // Menambahkan kolom user_id
+
+            // Menambahkan foreign key yang mengacu pada kolom id di tabel users
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Relasi foreign key dengan tabel users
+
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */

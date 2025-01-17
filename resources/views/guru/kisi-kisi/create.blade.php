@@ -10,13 +10,13 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nama_guru" class="form-label">Nama Guru</label>
-                        <input type="text" class="form-control" id="nama_guru" name="nama_guru" required>
+                        <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="{{ Auth::user()->name }}" required readonly>
                     </div>
                     <div class="mb-3">
                         <label for="mapel" class="form-label">Mata Pelajaran</label>
                         <input type="text" class="form-control" id="mapel" name="mapel" required>
                     </div>
-                    
+
                     <!-- Tingkat Checkbox -->
                     <div class="mb-3">
                         <label class="form-label">Tingkat</label><br>

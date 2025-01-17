@@ -37,8 +37,8 @@
                 <a href="<?php echo e(route('dashboard.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('dashboard.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                 </a>
-                <a href="<?php echo e(route('upload.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('upload.kurikulum') ? 'active' : ''); ?>">
-                    <i class="fa fa-book me-2"></i>Blangko Kisi - Kisi
+                <a href="<?php echo e(route('kisi.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('kisi.kurikulum') ? 'active' : ''); ?>">
+                    <i class="fa fa-book me-2"></i>Kisi - Kisi
                 </a>
                 <a href="<?php echo e(route('daftarhadir.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('daftarhadir.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-book me-2"></i>Daftar Hadir
@@ -55,6 +55,9 @@
                 </a>
                 <a href="<?php echo e(route('kelas.index')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('kelas.index') ? 'active' : ''); ?>">
                     <i class="fa fa-users me-2"></i>Kelas
+                </a>
+                <a href="<?php echo e(route('kisi.guru')); ?>" class="nav-item nav-link">
+                    <i class="fa fa-book me-2"></i>Kisi - Kisi
                 </a>
             <?php elseif(Auth::check() && Auth::user()->role === 'kaprog'): ?>
                 <a href="" class="nav-item nav-link <?php echo e(request()->routeIs('dashboard.kaprog') ? 'active' : ''); ?>">

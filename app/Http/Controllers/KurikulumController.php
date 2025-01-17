@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class KurikulumController extends Controller
 {
-    //DASHBOARD
-    public function dashKurikulum(){
+    // DASHBOARD
+    public function dashKurikulum()
+    {
         $user = Auth::user();
-        
-        return view('kurikulum.dashboard' , compact('user'));
-
+        return view('kurikulum.dashboard', compact('user'));
     }
     
 
@@ -34,35 +33,38 @@ class KurikulumController extends Controller
         return view('kurikulum.kisi-kisi.create', compact('user'));
     }
 
-   public function store(Request $request)
+    public function store(Request $request)
     {
         // Validasi input
         $request->validate([
             'nama_file' => 'nullable|file|mimes:pdf,jpg,png,doc,docx,xls,xlsx|max:10240',
-            'ukuran' => 'nullable|integer',
-            'nama_guru' => 'nullable|string|max:255',
             'mapel' => 'nullable|string|max:255',
             'tingkat' => 'nullable|string|max:50',
             'kosentrasi' => 'nullable|string|max:255',
         ]);
 
-        $filePath = null;  // Inisialisasi path file
-        $fileSize = null;  // Inisialisasi ukuran file
+        $filePath = null;
+        $fileSize = null;
 
         // Proses upload file jika ada
         if ($request->hasFile('nama_file') && $request->file('nama_file')->isValid()) {
-            $filePath = $request->file('nama_file')->store('uploads', 'public');  // Simpan ke storage/app/public/kisi_kisi
+            $filePath = $request->file('nama_file')->store('kisi_kisi', 'public');
             $fileSize = $request->file('nama_file')->getSize();
         }
 
+        // Mendapatkan nama guru dan user_id dari akun yang sedang login
+        $namaGuru = Auth::user()->name;
+        $userId = Auth::id();
+
         // Menyimpan data ke database
         KisiKisi::create([
-            'nama_file' => $filePath,  // Path relatif ke file
-            'ukuran' => $fileSize,  // Ukuran file
-            'nama_guru' => $request->input('nama_guru'),
+            'nama_file' => $filePath,
+            'ukuran' => $fileSize,
+            'nama_guru' => $namaGuru,
             'mapel' => $request->input('mapel'),
             'tingkat' => $request->input('tingkat'),
-            'kosentrasi' => $request->input('kosentrasi'), // Pastikan sesuai nama kolom
+            'kosentrasi' => $request->input('kosentrasi'),
+            'user_id' => $userId,  // Menyimpan user_id yang sedang login
         ]);
 
         return redirect()->route('kisi.kurikulum')->with('success', 'Data Kisi-Kisi berhasil ditambahkan.');
@@ -74,35 +76,42 @@ class KurikulumController extends Controller
         $user = Auth::user();
         return view('kurikulum.kisi-kisi.edit', compact('kisiKisi', 'user'));
     }
-    
+
     public function update(Request $request, $id)
     {
         $request->validate([
             'nama_file' => 'nullable|file|mimes:pdf,jpg,png,doc,docx,xls,xlsx|max:10240',
-            'nama_guru' => 'nullable|string|max:255',
             'mapel' => 'nullable|string|max:255',
             'tingkat' => 'nullable|string|max:50',
             'kosentrasi' => 'nullable|string|max:255',
         ]);
 
         $kisiKisi = KisiKisi::findOrFail($id);
-        $fileName = $kisiKisi->nama_file;  // Simpan nama file lama
-        $fileSize = $kisiKisi->ukuran;     // Simpan ukuran file lama
+        $filePath = $kisiKisi->nama_file;
+        $fileSize = $kisiKisi->ukuran;
 
+        // Jika ada file baru yang diupload
         if ($request->hasFile('nama_file') && $request->file('nama_file')->isValid()) {
-            $file = $request->file('nama_file');
-            $fileName = $file->getClientOriginalName();
-            $file->storeAs('public/kisi_kisi', $fileName);
-            $fileSize = $file->getSize();
+            if (Storage::exists('public/' . $filePath)) {
+                Storage::delete('public/' . $filePath);
+            }
+            $filePath = $request->file('nama_file')->store('kisi_kisi', 'public');
+            $fileSize = $request->file('nama_file')->getSize();
         }
 
+        // Mendapatkan nama guru dan user_id dari akun yang sedang login
+        $namaGuru = Auth::user()->name;
+        $userId = Auth::id();
+
+        // Update data di database
         $kisiKisi->update([
-            'nama_file' => $fileName,
+            'nama_file' => $filePath,
             'ukuran' => $fileSize,
-            'nama_guru' => $request->input('nama_guru'),
+            'nama_guru' => $namaGuru,
             'mapel' => $request->input('mapel'),
             'tingkat' => $request->input('tingkat'),
             'kosentrasi' => $request->input('kosentrasi'),
+            'user_id' => $userId,  // Menyimpan user_id yang sedang login
         ]);
 
         return redirect()->route('kisi.kurikulum')->with('success', 'Data Kisi-Kisi berhasil diperbarui.');
@@ -112,6 +121,12 @@ class KurikulumController extends Controller
     {
         $kisiKisi = KisiKisi::findOrFail($id);
 
+        // Hapus file dari storage jika ada
+        if (Storage::exists('public/' . $kisiKisi->nama_file)) {
+            Storage::delete('public/' . $kisiKisi->nama_file);
+        }
+
+        // Hapus data dari database
         $kisiKisi->delete();
 
         return redirect()->route('kisi.kurikulum')->with('success', 'Data Kisi-Kisi berhasil dihapus.');
@@ -124,39 +139,28 @@ class KurikulumController extends Controller
         return view('kurikulum.daftar-hadir.index' , compact('user'));
     }
 
-    public function editProfile()
+    public function editProfile($id)
     {
-        $user = Auth::user();
-        return view('profile.edit', compact('user'));
-    }
+        $kisiKisi = KisiKisi::findOrFail($id);
 
-    public function updateProfile(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'foto_profile' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        $user = Auth::user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        // Mengelola unggahan foto profil
-        if ($request->hasFile('foto_profile')) {
-            // Hapus file lama jika ada
-            if ($user->foto_profile) {
-                Storage::disk('public')->delete($user->foto_profile);
-            }
-
-            // Simpan file baru ke folder `public/foto_profiles`
-            $path = $request->file('foto_profile')->store('foto_profile', 'public');
-            $user->foto_profile = $path;
+        // Mengecek apakah file ada di storage
+        if (Storage::exists('public/' . $kisiKisi->nama_file)) {
+            return response()->download(storage_path('app/public/' . $kisiKisi->nama_file));
         }
 
-        $user->save();
+        return redirect()->route('kisi.kurikulum')->with('error', 'File tidak ditemukan.');
+    }
 
-        return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
+    public function downloadBlanko()
+    {
+        // Pastikan file sudah ada di folder yang tepat
+        $filePath = storage_path('app/public/uploads/blanko.pdf');
+
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            return redirect()->back()->with('error', 'File blanko tidak ditemukan.');
+        }
     }
 
 
