@@ -37,7 +37,7 @@
                 <a href="{{ route('dashboard.kurikulum') }}" class="nav-item nav-link {{ request()->routeIs('dashboard.kurikulum') ? 'active' : '' }}">
                     <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                 </a>
-                <a href="{{ route('kisi.kurikulum') }}" class="nav-item nav-link">
+                <a href="{{ route('kisi.kurikulum') }}" class="nav-item nav-link {{ request()->routeIs('kisi.kurikulum') ? 'active' : '' }}">
                     <i class="fa fa-book me-2"></i>Kisi - Kisi
                 </a>
                 <a href="{{ route('daftarhadir.kurikulum') }}" class="nav-item nav-link {{ request()->routeIs('daftarhadir.kurikulum') ? 'active' : '' }}">

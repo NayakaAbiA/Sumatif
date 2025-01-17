@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KisiKisi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KisiKisiController extends Controller
 {
@@ -21,8 +22,7 @@ class KisiKisiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_file' => 'required|string|max:255',
-            'ukuran' => 'required|integer',
+            'nama_file' => 'required|file|max:10240',
             'nama_guru' => 'required|string|max:255',
             'mapel' => 'required|string|max:255',
             'tingkat' => 'required|string|max:50',
@@ -30,7 +30,22 @@ class KisiKisiController extends Controller
             'jawaban' => 'nullable|string',
         ]);
 
-        KisiKisi::create($request->all());
+        if ($request->hasFile('nama_file')) {
+            $file = $request->file('nama_file');
+            $path = $file->storeAs('kisi_kisi', $file->getClientOriginalName(), 'public');
+            $ukuran = $file->getSize();
+        }
+
+        KisiKisi::create([
+            'nama_file' => $path ?? null,
+            'ukuran' => $ukuran ?? null,
+            'nama_guru' => Auth::user()->name,
+            'mapel' => $request->mapel,
+            'tingkat' => $request->tingkat,
+            'konsentrasi' => $request->konsentrasi,
+            'jawaban' => $request->jawaban,
+            'user_id' => Auth::id(),
+        ]);
 
         return redirect()->route('kisi_kisi.index')->with('success', 'Data Kisi-Kisi berhasil ditambahkan.');
     }
@@ -48,8 +63,7 @@ class KisiKisiController extends Controller
     public function update(Request $request, KisiKisi $kisiKisi)
     {
         $request->validate([
-            'nama_file' => 'required|string|max:255',
-            'ukuran' => 'required|integer',
+            'nama_file' => 'required|file|max:10240',
             'nama_guru' => 'required|string|max:255',
             'mapel' => 'required|string|max:255',
             'tingkat' => 'required|string|max:50',
@@ -57,7 +71,23 @@ class KisiKisiController extends Controller
             'jawaban' => 'nullable|string',
         ]);
 
-        $kisiKisi->update($request->all());
+        if ($request->hasFile('nama_file')) {
+            $file = $request->file('nama_file');
+            $path = $file->storeAs('kisi_kisi', $file->getClientOriginalName(), 'public');
+            $ukuran = $file->getSize();
+            $kisiKisi->update([
+                'nama_file' => $path,
+                'ukuran' => $ukuran
+            ]);
+        }
+
+        $kisiKisi->update([
+            'nama_guru' => $request->nama_guru,
+            'mapel' => $request->mapel,
+            'tingkat' => $request->tingkat,
+            'konsentrasi' => $request->konsentrasi,
+            'jawaban' => $request->jawaban,
+        ]);
 
         return redirect()->route('kisi_kisi.index')->with('success', 'Data Kisi-Kisi berhasil diperbarui.');
     }
@@ -65,7 +95,6 @@ class KisiKisiController extends Controller
     public function destroy(KisiKisi $kisiKisi)
     {
         $kisiKisi->delete();
-
         return redirect()->route('kisi_kisi.index')->with('success', 'Data Kisi-Kisi berhasil dihapus.');
     }
 }
