@@ -9,5 +9,5 @@ class UploadKisi extends Model
 {
     use HasFactory;
     protected $table = 'upload_kisi'; 
-    protected $fillable = ['path', 'type', 'size'];
+    protected $fillable = ['name', 'type', 'size'];
 }

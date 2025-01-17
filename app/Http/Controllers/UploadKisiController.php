@@ -9,33 +9,32 @@ class UploadKisiController extends Controller
 {
     public function index()
     {
-        $UploadKisi = UploadKisi::all();
-        $user = Auth::user();// Ambil semua data dari tabel Upload$UploadKisi
-        return view('kurikulum.uploadfile.index', compact('UploadKisi' , 'user'));
+        $uploadKisi = UploadKisi::all(); // Ambil semua data dari tabel Upload$UploadKisi
+        $user = Auth::user();
+        return view('kurikulum.uploadfile.index', compact('uploadKisi', 'user'));
     }
 
     public function create(){
         $user = Auth::user();
-        return view('kurikulum.uploadfile.create', compact('user'));
+        return view('kurikulum.uploadfile.create',  compact('user'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+            'file' => 'required|file|max:20048', // Validasi file
+        ]);
+    
+        $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+        $filePath = $file->store('kisi_kisi');
+    
+        $uploadKisi = UploadKisi::create([
+            'name' => $fileName,
+            'type' => $file->getClientOriginalExtension(),
+            'size' => $file->getSize(),
         ]);
 
-        if ($file = $request->file('file')) {
-            $path = $file->store('uploads', 'public');
-            $UploadKisi = UploadKisi ::create([
-                'path' => $path,
-                'type' => $file->getClientOriginalExtension(),
-                'size' => $file->getSize(),
-            ]);
-
-            return redirect()->route('upload.kurikulum')->with('success', 'File berhasil diunggah!')->with('file', $UploadKisi);
-        }
-
-        return back()->with('error', 'Gagal mengunggah file.');
+            return redirect()->route('upload.kurikulum')->with('success', 'File berhasil diunggah!')->with('file', $uploadKisi);
     }
 }
