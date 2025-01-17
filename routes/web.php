@@ -1,20 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
-use App\Http\Controllers\JurusanController;
-use App\Http\Controllers\KelasController;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KurikulumController;
 
 
-use App\Http\Controllers\SiswaController;
+
 use App\Http\Controllers\SoalUjianController;
-use App\Http\Controllers\UploadKisiController;
-use App\Http\Controllers\UserController;
+
 use App\Models\UploadKisi;
 use GuzzleHttp\Psr7\UploadedFile;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Contracts\Cache\Store;
+
+
 
 
 
@@ -83,6 +87,7 @@ Route::get('/soal/download/blangko', [SoalUjianController::class, 'downloadTempl
 
 Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
 Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+
 
 
 
