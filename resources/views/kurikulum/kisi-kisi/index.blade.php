@@ -1,44 +1,96 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-light text-center rounded p-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <div>
-                <a href="" class="btn btn-sm btn-success"><i class="fa fa-upload"></i> Unggah</a>
-            </div>
-            <div>
-                <a href="">Show All</a>
+<div class="container-fluid pt-4 px-4">
+    <div class="row">
+        <!-- Card untuk Nama File (Bagian atas) -->
+        <div class="col-lg-12 mb-4">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5>Detail Kisi-Kisi</h5>
+                    <a href="{{ route('kisi.create.kurikulum') }}" class="btn btn-sm btn-success">
+                        <i class="fas fa-upload"></i> Unggah</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>  <!-- Kolom untuk nomor -->
+                                <th>Nama File</th>
+                                <th>Aksi</th> <!-- Kolom aksi untuk edit dan hapus -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($kisiKisi as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>  <!-- Menampilkan nomor baris -->
+                                    <td>{{ $item->nama_file ?? 'Tidak ada file' }}</td>
+                                    <td>
+                                        <a href="{{ route('kisi.edit.kurikulum', $item->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> 
+                                        </a>
+                                        <form action="{{ route('kisi.destroy.kurikulum', $item->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus file ini?')">
+                                                <i class="fas fa-trash"></i> 
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-            <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0">
-                    <thead>
-                        <tr class="text-dark">
-                            <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for($i = 0; $i < 5; $i++)
+
+        <!-- Card untuk Informasi Lain (Bagian bawah) -->
+        <div class="col-lg-12 mb-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5>Daftar Kisi-Kisi</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>  <!-- Kolom untuk nomor -->
+                        <th>Nama Guru</th>
+                        <th>Mapel</th>
+                        <th>Tingkat</th>
+                        <th>Konsentrasi</th>
+                        <th>File</th>
+                        <th>Aksi</th> <!-- Kolom aksi untuk edit dan hapus -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($kisiKisi as $index => $item)
                         <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
-                            <td>01 Jan 2045</td>
-                            <td>INV-0123</td>
-                            <td>John Doe</td>
-                            <td>$123</td>
-                            <td>Paid</td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                            <td>{{ $index + 1 }}</td>  <!-- Menampilkan nomor baris -->
+                            <td>{{ $item->nama_guru }}</td>
+                            <td>{{ $item->mapel }}</td>
+                            <td>{{ $item->tingkat }}</td>
+                            <td>{{ $item->konsentrasi }}</td>
+                            <td>{{ $item->nama_file ?? 'Tidak ada file' }}</td>
+
+                            <!-- Kolom untuk melihat file -->
+                            <td>
+                                @if($item->nama_file)
+                                    <!-- Menampilkan tombol Lihat jika file ada -->
+                                    <a href="{{ asset('storage/' . $item->nama_file) }}" target="_blank" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> Lihat
+                                    </a>
+                                @else
+                                    <span>Tidak ada file</span>
+                                @endif
+                            </td>
                         </tr>
-                        @endfor
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
 @endsection
