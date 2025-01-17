@@ -46,11 +46,14 @@
                 <a href="" class="nav-item nav-link {{ request()->routeIs('soalujian.kurikulum') ? 'active' : '' }}">
                     <i class="fa fa-book me-2"></i>Soal Ujian
                 </a>
+                <a href="{{ route('kelas.index') }}" class="nav-item nav-link {{ request()->routeIs('soalujian.kurikulum') ? 'active' : '' }}">
+                    <i class="fa fa-book me-2"></i>Tambah Kelas
+                </a>
             @elseif (Auth::check() && Auth::user()->role === 'guru')
                 <a href="{{ route('dashboard.guru') }}" class="nav-item nav-link {{ request()->routeIs('dashboard.guru') ? 'active' : '' }}">
                     <i class="fa fa-chalkboard-teacher me-2"></i>Dashboard Guru
                 </a>
-                <a href="" class="nav-item nav-link {{ request()->routeIs('kelas.guru') ? 'active' : '' }}">
+                <a href="{{ route('kelas.index') }}" class="nav-item nav-link {{ request()->routeIs('kelas.index') ? 'active' : '' }}">
                     <i class="fa fa-users me-2"></i>Kelas
                 </a>
             @elseif (Auth::check() && Auth::user()->role === 'kaprog')

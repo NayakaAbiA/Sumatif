@@ -11,6 +11,7 @@ class KurikulumController extends Controller
     //DASHBOARD
     public function dashKurikulum(){
         $user = Auth::user();
+        
         return view('kurikulum.dashboard' , compact('user'));
 
     }
