@@ -9,7 +9,7 @@
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h5>Daftar Kisi-Kisi</h5>
                     <a href="{{ route('kisi.create.guru') }}" class="btn btn-success btn-sm">
-                        <i class="fas fa-plus"></i> Tambah Kisi-Kisi
+                        <i class="fas fa-plus"></i> Unggah
                     </a>
                 </div>
                 <div class="table-responsive">

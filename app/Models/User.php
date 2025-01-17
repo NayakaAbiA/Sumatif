@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+        public function kisiKisi()
+    {
+        return $this->hasMany(KisiKisi::class);
+    }
 }
