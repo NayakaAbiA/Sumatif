@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\KisiKisi;
+use App\Models\SoalUjian;
 use Illuminate\Support\Facades\Storage;
 
 class KurikulumController extends Controller
@@ -12,10 +13,11 @@ class KurikulumController extends Controller
     //DASHBOARD
     public function dashKurikulum(){
         $user = Auth::user();
+        
         return view('kurikulum.dashboard' , compact('user'));
 
     }
-
+    
 
 
     //KISI - KISI
@@ -116,10 +118,10 @@ class KurikulumController extends Controller
     }
 
 
-    //KDAFTAR HADIR
+    //DAFTAR HADIR
     public function dftrHadirKurikulum(){
         $user = Auth::user();
-        return view('kurikulum.daftar-hadir.index' , compact('kurikulum'));
+        return view('kurikulum.daftar-hadir.index' , compact('user'));
     }
 
     public function editProfile()
@@ -155,5 +157,67 @@ class KurikulumController extends Controller
         $user->save();
 
         return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+
+    //Soal Ujian
+    public function indexSoal()
+    {
+        $user = Auth::user();
+        $soalUjian = SoalUjian::all();
+        return view('kurikulum.soal-ujian.index', compact('soalUjian', 'user'));
+    }
+
+    public function createSoal()
+    {
+        $user = Auth::user();
+        $soalUjian = SoalUjian::all();
+        return view('kurikulum.soal-ujian.create', compact('soalUjian', 'user'));
+    }
+
+    public function storeSoal(Request $request)
+    {
+        $request->validate([
+            'nama_guru' => 'required',
+            'mapel' => 'required',
+            'tingkat' => 'required',
+            'konsentrasi' => 'required',
+            'soal' => 'nullable|string',
+        ]);
+
+        SoalUjian::create($request->all());
+
+        return redirect()->route('soal.kurikulum')->with('success', 'Soal ujian berhasil ditambahkan.');
+    }
+
+    public function editSoal($id)
+    {
+        $user = Auth::user();
+        $soalUjian = SoalUjian::findOrFail($id);
+        return view('soal.edit.kurikulum', compact('soalUjian', 'user'));
+    }
+
+    public function updateSoal(Request $request, $id)
+    {
+        $request->validate([
+            'nama_guru' => 'required',
+            'mapel' => 'required',
+            'tingkat' => 'required',
+            'konsentrasi' => 'required',
+            'soal' => 'nullable|string',
+        ]);
+
+        $soalUjian = SoalUjian::findOrFail($id);
+        $soalUjian->update($request->all());
+
+        return redirect()->route('soal.kurikulum')->with('success', 'Soal ujian berhasil diperbarui.');
+    }
+
+    public function destroySoal($id)
+    {
+        $soalUjian = SoalUjian::findOrFail($id);
+        $soalUjian->delete();
+
+        return redirect()->route('soal.kurikulum')->with('success', 'Soal ujian berhasil dihapus.');
     }
 }
