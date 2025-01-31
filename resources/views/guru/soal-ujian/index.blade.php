@@ -14,9 +14,11 @@
                             <i class="fas fa-download"></i>upload
                         </a>
                         <!-- Tombol Download Blangko -->
-                        <a href="{{ route('download.soal') }}" class="btn btn-primary btn-sm me-2">
-                            <i class="fas fa-download"></i> Download Blangko
-                        </a>
+                        @foreach ($soalUjian as $soal)
+                            <a href="{{ route('download.soal', $soal->id) }}" class="btn btn-primary btn-sm me-2">
+                                <i class="fas fa-download"></i> Download Blangko
+                            </a>
+                        @endforeach
                     </div>
                 </div>
                 <div class="table-responsive">

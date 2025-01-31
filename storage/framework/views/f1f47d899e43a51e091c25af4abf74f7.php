@@ -37,7 +37,7 @@
                 <a href="<?php echo e(route('dashboard.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('dashboard.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                 </a>
-                <a href="<?php echo e(route('kisi.kurikulum')); ?>" class="nav-item nav-link">
+                <a href="<?php echo e(route('kisi.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('kisi.kurikulum') ? 'active' : ''); ?>">
                     <i class="fa fa-book me-2"></i>Kisi - Kisi
                 </a>
                 <a href="<?php echo e(route('daftarhadir.kurikulum')); ?>" class="nav-item nav-link <?php echo e(request()->routeIs('daftarhadir.kurikulum') ? 'active' : ''); ?>">

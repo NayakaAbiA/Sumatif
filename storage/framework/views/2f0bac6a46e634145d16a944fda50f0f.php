@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid pt-4 px-6">
     <h4>Tambah Soal Ujian</h4>
@@ -8,7 +6,7 @@
             <?php echo csrf_field(); ?>
             <div class="mb-3">
                 <label for="nama_guru" class="form-label">Nama Guru</label>
-                <input type="text" name="nama_guru" class="form-control" required>
+                <input type="text" name="nama_guru" value="<?php echo e(Auth::user()->name); ?>" class="form-control" required readonly>
             </div>
             <div class="mb-3">
                 <label for="mapel" class="form-label">Mapel</label>

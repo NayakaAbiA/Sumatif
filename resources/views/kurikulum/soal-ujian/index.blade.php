@@ -19,16 +19,29 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Nama Guru</th>
-                                <th>Mapel</th>
-                                <th>Tingkat</th>
-                                <th>Konsentrasi</th>
                                 <th>Soal</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                      
+                            @foreach ($soalUjian as $soal)
+                            <tr>
+                                <td>{{ $soal->nama_file ?? 'Tidak ada file' }}</td>
+                                <td class="text-center">
+                                    <!-- Edit and Delete actions -->
+                                    <a href="{{ route('soal.edit.kurikulum', $soal->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <form action="{{ route('soal.destroy.kurikulum', $soal->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus soal ini?')">
+                                            <i class="fas fa-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -49,6 +62,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($soalUjian->groupBy('kurikulum') as $kurikulum => $soals)
+                            <tr>
+                                <td>{{ $kurikulum }}</td>
+                                <td>{{ count($soals) }}</td>
+                                <td>
+                                    <!-- Optional: Actions for Kurikulum -->
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

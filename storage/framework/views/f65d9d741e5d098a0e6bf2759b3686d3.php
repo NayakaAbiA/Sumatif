@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid pt-4 px-6">
     <div class="row">
@@ -14,9 +12,11 @@
                             <i class="fas fa-download"></i>upload
                         </a>
                         <!-- Tombol Download Blangko -->
-                        <a href="<?php echo e(route('download.soal')); ?>" class="btn btn-primary btn-sm me-2">
-                            <i class="fas fa-download"></i> Download Blangko
-                        </a>
+                        <?php $__currentLoopData = $soalUjian; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $soal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <a href="<?php echo e(route('download.soal', $soal->id)); ?>" class="btn btn-primary btn-sm me-2">
+                                <i class="fas fa-download"></i> Download Blangko
+                            </a>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
                 <div class="table-responsive">

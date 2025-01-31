@@ -167,6 +167,7 @@ class KurikulumController extends Controller
     //Soal Ujian
     public function indexSoal()
     {
+    
         $user = Auth::user();
         $soalUjian = SoalUjian::all();
         return view('kurikulum.soal-ujian.index', compact('soalUjian', 'user'));
@@ -182,14 +183,32 @@ class KurikulumController extends Controller
     public function storeSoal(Request $request)
     {
         $request->validate([
-            'nama_guru' => 'required',
-            'mapel' => 'required',
-            'tingkat' => 'required',
-            'konsentrasi' => 'required',
-            'soal' => 'nullable|string',
+            'nama_guru' => 'nullable',
+            'mapel' => 'nullable',
+            'tingkat' => 'nullable',
+            'konsentrasi' => 'nullable',
+            'nama_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx',
         ]);
 
-        SoalUjian::create($request->all());
+        // Mendapatkan file yang diunggah
+        $file = $request->file('nama_file');
+
+        if ($file) {
+            // Mendapatkan nama file asli tanpa nama unik
+            $fileName = $file->getClientOriginalName();
+
+            // Menyimpan file ke folder yang diinginkan dengan nama aslinya
+            $filePath = $file->storeAs('soal_files', $fileName, 'public');
+            
+            // Menyimpan data file ke database
+            SoalUjian::create([
+                'nama_guru' => $request->nama_guru,
+                'mapel' => $request->mapel,
+                'tingkat' => $request->tingkat,
+                'konsentrasi' => $request->konsentrasi,
+                'nama_file' => $fileName,  // Menyimpan nama file yang asli di database
+            ]);
+        }
 
         return redirect()->route('soal.kurikulum')->with('success', 'Soal ujian berhasil ditambahkan.');
     }
@@ -198,22 +217,58 @@ class KurikulumController extends Controller
     {
         $user = Auth::user();
         $soalUjian = SoalUjian::findOrFail($id);
-        return view('soal.edit.kurikulum', compact('soalUjian', 'user'));
+        return view('kurikulum.soal-ujian.edit', compact('soalUjian', 'user'));
     }
 
     public function updateSoal(Request $request, $id)
     {
+        // Validasi input
         $request->validate([
-            'nama_guru' => 'required',
-            'mapel' => 'required',
-            'tingkat' => 'required',
-            'konsentrasi' => 'required',
-            'soal' => 'nullable|string',
+            'nama_guru' => 'nullable',
+            'mapel' => 'nullable',
+            'tingkat' => 'nullable',
+            'konsentrasi' => 'nullable',
+            'nama_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx', // Validasi file
         ]);
 
+        // Cari data soal berdasarkan ID
         $soalUjian = SoalUjian::findOrFail($id);
-        $soalUjian->update($request->all());
 
+        // Cek jika ada file yang diunggah
+        if ($request->hasFile('nama_file')) {
+            // Hapus file lama jika ada
+            if ($soalUjian->nama_file) {
+                Storage::disk('public')->delete('soal_files/' . $soalUjian->nama_file);
+            }
+
+            // Mendapatkan file yang diunggah
+            $file = $request->file('nama_file');
+
+            // Mendapatkan nama file asli tanpa nama unik
+            $fileName = $file->getClientOriginalName();
+
+            // Menyimpan file ke folder yang diinginkan dengan nama aslinya
+            $filePath = $file->storeAs('soal_files', $fileName, 'public');
+            
+            // Memperbarui data soal dengan file baru
+            $soalUjian->update([
+                'nama_guru' => $request->nama_guru,
+                'mapel' => $request->mapel,
+                'tingkat' => $request->tingkat,
+                'konsentrasi' => $request->konsentrasi,
+                'nama_file' => $fileName,  // Menyimpan nama file baru di database
+            ]);
+        } else {
+            // Jika tidak ada file baru, update data lainnya saja
+            $soalUjian->update([
+                'nama_guru' => $request->nama_guru,
+                'mapel' => $request->mapel,
+                'tingkat' => $request->tingkat,
+                'konsentrasi' => $request->konsentrasi,
+            ]);
+        }
+
+        // Redirect dengan pesan sukses
         return redirect()->route('soal.kurikulum')->with('success', 'Soal ujian berhasil diperbarui.');
     }
 

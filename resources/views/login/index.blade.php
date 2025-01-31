@@ -104,11 +104,11 @@
                 <!-- Left side text content (optional) -->
                 <div class="col-lg-6 mb-5 mb-lg-0 text-light">
                     <h1 class="display-5 fw-bold ls-tight">
-                        Dokumen Sumatif <br />
-                        <span style="color: hsl(218, 81%, 75%)">dan Sumatif</span>
+                    Kelola <br />
+                        <span style="color: hsl(218, 81%, 75%)"> Dokumen Sumatif & Formatif</span>
                     </h1>
                     <p class="opacity-70">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, expedita iusto veniam atque, magni tempora mollitia.
+                    Simpan, akses, dan kelola data dengan lebih efisien dan terstruktur.
                     </p>
                 </div>
 

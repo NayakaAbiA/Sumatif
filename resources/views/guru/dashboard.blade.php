@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
-
+    <head>
         <style>
             .profile-pic {
                 width: 150px;

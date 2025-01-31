@@ -9,5 +9,5 @@ class SoalUjian extends Model
 {
     use HasFactory;
     protected $table = 'soal_ujian';
-    protected $fillable = ['nama_guru', 'mapel', 'tingkat', 'konsentrasi', 'soal'];
+    protected $fillable = ['nama_guru', 'mapel', 'tingkat', 'konsentrasi', 'nama_file'];
 }

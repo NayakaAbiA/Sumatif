@@ -18,7 +18,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('kisi.store.kurikulum') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('soal.store.kurikulum') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">

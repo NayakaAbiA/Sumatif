@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('soal_ujian', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_guru');
-            $table->string('mapel');
-            $table->string('tingkat');
-            $table->string('konsentrasi');
-            $table->text('soal')->nullable();
+            $table->string('nama_guru')->nullable();
+            $table->string('mapel')->nullable();
+            $table->string('tingkat')->nullable();
+            $table->string('konsentrasi')->nullable();
+            $table->string('nama_file')->nullable();
             $table->timestamps();
         });
     }

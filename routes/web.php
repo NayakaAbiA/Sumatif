@@ -67,12 +67,12 @@ Route::delete('/soal-ujian/destroy/kurikulum/{id}', [KurikulumController::class,
 Route::get('/dashboard/guru', [GuruController::class, 'dashguru'])->name('dashboard.guru');
 
 //Kisi Kisi Guru
-Route::get('/kisi-kisi/guru', [KurikulumController::class, 'index'])->name('kisi.guru');
-Route::get('/kisi-kisi/create/guru', [KurikulumController::class, 'create'])->name('kisi.create.guru');
-Route::post('/kisi-kisi/store/guru', [KurikulumController::class, 'store'])->name('kisi.store.guru');
-Route::get('/kisi-kisi/edit/guru/{id}', [KurikulumController::class, 'edit'])->name('kisi.edit.guru');
-Route::put('/kisi-kisi/update/guru/{id}', [KurikulumController::class, 'update'])->name('kisi.update.guru');
-Route::delete('/kisi-kisi/destroy/guru/{id}', [KurikulumController::class, 'destroy'])->name('kisi.destroy.guru');
+Route::get('/kisi-kisi/guru', [GuruController::class, 'index'])->name('kisi.guru');
+Route::get('/kisi-kisi/create/guru', [GuruController::class, 'create'])->name('kisi.create.guru');
+Route::post('/kisi-kisi/store/guru', [GuruController::class, 'store'])->name('kisi.store.guru');
+Route::get('/kisi-kisi/edit/guru/{id}', [GuruController::class, 'edit'])->name('kisi.edit.guru');
+Route::put('/kisi-kisi/update/guru/{id}', [GuruController::class, 'update'])->name('kisi.update.guru');
+Route::delete('/kisi-kisi/destroy/guru/{id}', [GuruController::class, 'destroy'])->name('kisi.destroy.guru');
 
 //Soal Ujian Guru
 Route::get('/soal/ujian/guru', [SoalUjianController::class, 'index'])->name('soal.guru');
@@ -81,7 +81,8 @@ Route::post('/soal/store/guru', [SoalUjianController::class, 'store'])->name('so
 Route::get('/soal/edit/guru/{id}', [SoalUjianController::class, 'edit'])->name('soal.edit.guru');
 Route::put('/soal/update/guru/{id}', [SoalUjianController::class, 'update'])->name('soal.update.guru');
 Route::delete('/soal/destroy/guru/{id}', [SoalUjianController::class, 'destroy'])->name('soal.destroy.guru');
-Route::get('/soal/download/blangko', [SoalUjianController::class, 'downloadTemplate'])->name('download.soal');
+Route::get('/soal/download/{id}', [SoalUjianController::class, 'downloadSoal'])->name('download.soal');
+
 
 
 

@@ -17,16 +17,29 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Nama Guru</th>
-                                <th>Mapel</th>
-                                <th>Tingkat</th>
-                                <th>Konsentrasi</th>
                                 <th>Soal</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                      
+                            <?php $__currentLoopData = $soalUjian; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $soal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr>
+                                <td><?php echo e($soal->nama_file ?? 'Tidak ada file'); ?></td>
+                                <td class="text-center">
+                                    <!-- Edit and Delete actions -->
+                                    <a href="<?php echo e(route('soal.edit.kurikulum', $soal->id)); ?>" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <form action="<?php echo e(route('soal.destroy.kurikulum', $soal->id)); ?>" method="POST" style="display:inline;">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus soal ini?')">
+                                            <i class="fas fa-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>
@@ -47,6 +60,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $__currentLoopData = $soalUjian->groupBy('kurikulum'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kurikulum => $soals): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr>
+                                <td><?php echo e($kurikulum); ?></td>
+                                <td><?php echo e(count($soals)); ?></td>
+                                <td>
+                                    <!-- Optional: Actions for Kurikulum -->
+                                </td>
+                            </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>

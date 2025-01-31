@@ -8,7 +8,7 @@
             @csrf
             <div class="mb-3">
                 <label for="nama_guru" class="form-label">Nama Guru</label>
-                <input type="text" name="nama_guru" class="form-control" required>
+                <input type="text" name="nama_guru" value="{{ Auth::user()->name }}" class="form-control" required readonly>
             </div>
             <div class="mb-3">
                 <label for="mapel" class="form-label">Mapel</label>
