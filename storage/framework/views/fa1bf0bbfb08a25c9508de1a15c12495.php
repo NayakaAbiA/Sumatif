@@ -25,13 +25,13 @@
                                     <td><?php echo e($item->nama_file ?? 'Tidak ada file'); ?></td>
                                     <td>
                                         <a href="<?php echo e(route('kisi.edit.kurikulum', $item->id)); ?>" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> 
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="<?php echo e(route('kisi.destroy.kurikulum', $item->id)); ?>" method="POST" style="display:inline;">
                                             <?php echo csrf_field(); ?>
                                             <?php echo method_field('DELETE'); ?>
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus file ini?')">
-                                                <i class="fas fa-trash"></i> 
+                                                <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -79,7 +79,7 @@
                                     <a href="<?php echo e(asset('storage/' . $item->nama_file)); ?>" target="_blank" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Lihat
                                     </a>
-                                <?php else: ?>
+                                @elsez
                                     <span>Tidak ada file</span>
                                 <?php endif; ?>
                             </td>

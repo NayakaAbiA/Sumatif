@@ -43,7 +43,7 @@
                 <a href="{{ route('daftarhadir.kurikulum') }}" class="nav-item nav-link {{ request()->routeIs('daftarhadir.kurikulum') ? 'active' : '' }}">
                     <i class="fa fa-book me-2"></i>Daftar Hadir
                 </a>
-                <a href="" class="nav-item nav-link {{ request()->routeIs('soalujian.kurikulum') ? 'active' : '' }}">
+                <a href="{{ route('soal.kurikulum') }}" class="nav-item nav-link {{ request()->routeIs('soalujian.kurikulum') ? 'active' : '' }}">
                     <i class="fa fa-book me-2"></i>Soal Ujian
                 </a>
                 <a href="{{ route('kelas.index') }}" class="nav-item nav-link {{ request()->routeIs('soalujian.kurikulum') ? 'active' : '' }}">
@@ -58,6 +58,9 @@
                 </a>
                 <a href="{{ route('kisi.guru') }}" class="nav-item nav-link">
                     <i class="fa fa-book me-2"></i>Kisi - Kisi
+                </a>
+                <a href="{{ route('soal.guru') }}" class="nav-item nav-link">
+                    <i class="fa fa-book me-2"></i>Soal Ujian
                 </a>
             @elseif (Auth::check() && Auth::user()->role === 'kaprog')
                 <a href="" class="nav-item nav-link {{ request()->routeIs('dashboard.kaprog') ? 'active' : '' }}">

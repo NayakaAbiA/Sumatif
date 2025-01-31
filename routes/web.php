@@ -17,6 +17,13 @@ use App\Http\Controllers\KurikulumController;
 
 
 
+use App\Http\Controllers\SoalUjianController;
+
+
+
+
+
+
 
 
 
@@ -34,10 +41,49 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // Pr
 
 // Kurikulum Routes
 Route::get('/dashboard/kurikulum', [KurikulumController::class, 'dashKurikulum'])->name('dashboard.kurikulum');
-Route::get('/kisi-kisi/kurikulum', [KurikulumController::class, 'kisiKurikulum'])->name('kisi.kurikulum');
+//Kisi Kisi Kurikulum
+Route::get('/kisi-kisi/kurikulum', [KurikulumController::class, 'index'])->name('kisi.kurikulum');
+Route::get('/kisi-kisi/create/kurikulum', [KurikulumController::class, 'create'])->name('kisi.create.kurikulum');
+Route::post('/kisi-kisi/store/kurikulum', [KurikulumController::class, 'store'])->name('kisi.store.kurikulum');
+Route::get('/kisi-kisi/edit/kurikulum/{id}', [KurikulumController::class, 'edit'])->name('kisi.edit.kurikulum');
+Route::put('/kisi-kisi/update/kurikulum/{id}', [KurikulumController::class, 'update'])->name('kisi.update.kurikulum');
+Route::delete('/kisi-kisi/destroy/kurikulum/{id}', [KurikulumController::class, 'destroy'])->name('kisi.destroy.kurikulum');
+
+//Soal Ujian Kurikulum
+Route::get('/soal-ujian/kurikulum', [KurikulumController::class, 'indexSoal'])->name('soal.kurikulum');
+Route::get('/soal-ujian/create/kurikulum', [KurikulumController::class, 'createSoal'])->name('soal.create.kurikulum');
+Route::post('/soal-ujian/store/kurikulum', [KurikulumController::class, 'storeSoal'])->name('soal.store.kurikulum');
+Route::get('/soal-ujian/edit/kurikulum/{id}', [KurikulumController::class, 'editSoal'])->name('soal.edit.kurikulum');
+Route::put('/soal-ujian/update/kurikulum/{id}', [KurikulumController::class, 'updateSoal'])->name('soal.update.kurikulum');
+Route::delete('/soal-ujian/destroy/kurikulum/{id}', [KurikulumController::class, 'destroySoal'])->name('soal.destroy.kurikulum');
 
 
+
+
+
+
+
+//GURU
 Route::get('/dashboard/guru', [GuruController::class, 'dashguru'])->name('dashboard.guru');
+
+//Kisi Kisi Guru
+Route::get('/kisi-kisi/guru', [GuruController::class, 'index'])->name('kisi.guru');
+Route::get('/kisi-kisi/create/guru', [GuruController::class, 'create'])->name('kisi.create.guru');
+Route::post('/kisi-kisi/store/guru', [GuruController::class, 'store'])->name('kisi.store.guru');
+Route::get('/kisi-kisi/edit/guru/{id}', [GuruController::class, 'edit'])->name('kisi.edit.guru');
+Route::put('/kisi-kisi/update/guru/{id}', [GuruController::class, 'update'])->name('kisi.update.guru');
+Route::delete('/kisi-kisi/destroy/guru/{id}', [GuruController::class, 'destroy'])->name('kisi.destroy.guru');
+
+//Soal Ujian Guru
+Route::get('/soal/ujian/guru', [SoalUjianController::class, 'index'])->name('soal.guru');
+Route::get('/soal/create/guru', [SoalUjianController::class, 'create'])->name('soal.create.guru');
+Route::post('/soal/store/guru', [SoalUjianController::class, 'store'])->name('soal.store.guru');
+Route::get('/soal/edit/guru/{id}', [SoalUjianController::class, 'edit'])->name('soal.edit.guru');
+Route::put('/soal/update/guru/{id}', [SoalUjianController::class, 'update'])->name('soal.update.guru');
+Route::delete('/soal/destroy/guru/{id}', [SoalUjianController::class, 'destroy'])->name('soal.destroy.guru');
+Route::get('/soal/download/{id}', [SoalUjianController::class, 'downloadSoal'])->name('download.soal');
+
+
 
 
 
@@ -46,20 +92,6 @@ Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profi
 Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 
 
-Route::get('/kisi-kisi/kurikulum', [KurikulumController::class, 'index'])->name('kisi.kurikulum');
-Route::get('/kisi-kisi/create/kurikulum', [KurikulumController::class, 'create'])->name('kisi.create.kurikulum');
-Route::post('/kis-kisi/store/kurikulum', [KurikulumController::class, 'store'])->name('kisi.store.kurikulum');
-Route::get('/kisi-kisi/{id}/edit', [KurikulumController::class, 'edit'])->name('kisi.edit.kurikulum');
-Route::put('/kisi-kisi/{id}', [KurikulumController::class, 'update'])->name('kisi.update.kurikulum');
-Route::delete('/kisi-kisi/{id}', [KurikulumController::class, 'destroy'])->name('kisi.destroy.kurikulum');
-
-
-Route::get('/kisi-kisi/guru', [GuruController::class, 'index'])->name('kisi.guru');
-Route::get('/kisi-kisi/create/guru', [GuruController::class, 'create'])->name('kisi.create.guru');
-Route::post('/kis-kisi/store/guru', [GuruController::class, 'store'])->name('kisi.store.guru');
-Route::get('/kisi-kisi/{id}/guru/edit', [GuruController::class, 'edit'])->name('kisi.edit.guru');
-Route::put('/kisi-kisi/{id}/guru', [GuruController::class, 'update'])->name('kisi.update.guru');
-Route::delete('/kisi-kisi/{id}/guru', [GuruController::class, 'destroy'])->name('kisi.destroy.guru');
 
 
 Route::get('/daftarhadir/kurikulum', [KurikulumController::class, 'dftrHadirKurikulum'])->name('daftarhadir.kurikulum');
